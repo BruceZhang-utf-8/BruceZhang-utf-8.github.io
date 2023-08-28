@@ -4,11 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="flink运行架构-运行时组件, 数维杂谈">
-    <meta name="description" content="flink 运行时组件
-作业管理器（JobManager）
-控制一个应用程序执行的主进程，每一个应用程序都会被一个不同的JobManager所控制执行
-JobManager 会先接收到要执行的应用程序，这个应用程序会包括：作业图（JobGr">
+    <meta name="keywords" content="docker安装, 数维杂谈">
+    <meta name="description" content="Docker安装部署一 检查环境12#查看系统内核uname -r
+
+
+12#查看系统版本cat /etc/os-release
+
+
+二 安装Docker1.卸载旧版本12345678yum remove docker \         ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +23,7 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>flink运行架构-运行时组件 | 数维杂谈</title>
+    <title>docker安装 | 数维杂谈</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -335,12 +338,12 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">flink运行架构-运行时组件</h1>
+                    <h1 class="description center-align post-title">docker安装</h1>
                 </div>
             </div>
         </div>
@@ -364,8 +367,8 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/flink%E8%BF%90%E8%A1%8C%E6%97%B6%E7%BB%84%E4%BB%B6/">
-                                <span class="chip bg-color">flink运行时组件</span>
+                            <a href="/tags/docker%E5%AE%89%E8%A3%85/">
+                                <span class="chip bg-color">docker安装</span>
                             </a>
                         
                     </div>
@@ -376,12 +379,12 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
-                                大数据
+                            <a href="/categories/docker/" class="post-category">
+                                docker
                             </a>
                         
-                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/flink/" class="post-category">
-                                flink
+                            <a href="/categories/docker/%E8%BF%90%E7%BB%B4/" class="post-category">
+                                运维
                             </a>
                         
                     </div>
@@ -393,7 +396,7 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-07-16
+                    2023-08-28
                 </div>
                 
 
@@ -419,29 +422,42 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="flink-运行时组件"><a href="#flink-运行时组件" class="headerlink" title="flink 运行时组件"></a>flink 运行时组件</h1><p><img src="/.io//2023-07-16-23-10-30.png" alt="flink运行时组件"></p>
-<h2 id="作业管理器（JobManager）"><a href="#作业管理器（JobManager）" class="headerlink" title="作业管理器（JobManager）"></a>作业管理器（JobManager）</h2><ul>
-<li>控制一个应用程序执行的主进程，每一个应用程序都会被一个不同的JobManager所控制执行</li>
-<li>JobManager 会先接收到要执行的应用程序，这个应用程序会包括：作业图（JobGraph）、逻辑数据流图（Logical dataflow graph）和打包了所有的类、库和其他资源的JAR包。</li>
-<li>JobManager 会把JobGraph转换成一个物理层面的数据流图，这个图被叫做”执行图”（ExecutionGraph）,包含了所有可以并发执行的任务。</li>
-<li>JobManager 会向资源管理器（ResourceManager）请求任务必要的资源，也就是任务管理器（TaskManager）上的插槽（Slot）。一旦它获取到了足够的资源，就会将执行图分发到真正运行他们的TaskManager上。而在运行过程中，JobManager会负责所有需要中央协调的操作，比如检查点（checkpoint）的协调。</li>
-</ul>
-<h2 id="任务管理器（TaskManager）"><a href="#任务管理器（TaskManager）" class="headerlink" title="任务管理器（TaskManager）"></a>任务管理器（TaskManager）</h2><ul>
-<li>flink的工作进程。通常在flink中会有多个TaskManager运行，每个TaskManager都包含了一定数量的插槽（slots）。插槽的数量限制了TaskManager能够执行的任务数量。</li>
-<li>启动之后，TaskManager会向资源管理区注册它的插槽；收到资源管理器的指令后，TaskManager就会将一个或多个插槽提供给JobManager调用。JobManager就可以向插槽分配任务（task）了。</li>
-<li>在执行过程中，一个TaskManager可以跟其他运行同一应用程序的TaskManager交换数据。</li>
-</ul>
-<h2 id="资源管理器（ResourceManager）"><a href="#资源管理器（ResourceManager）" class="headerlink" title="资源管理器（ResourceManager）"></a>资源管理器（ResourceManager）</h2><ul>
-<li>主要负责管理任务管理器（TaskManager）的插槽（slot）,TaskManager插槽是flink中定义的处理资源单元。</li>
-<li>flink为不同的环境和资源管理工具提供了不同的资源管理器，比如Yarn,Mesos,K8s以及standalone部署。</li>
-<li>当JobManager申请插槽资源时，ResouceManager会将有空闲插槽的TaskManager分配给JobManager。如果ResourceManager没有足够的插槽来满足JobManager的请求，它还可以向资源平台发起会话，以提供启动TaskManager进程的容器。</li>
-</ul>
-<h2 id="分发器（Dispatcher）"><a href="#分发器（Dispatcher）" class="headerlink" title="分发器（Dispatcher）"></a>分发器（Dispatcher）</h2><ul>
-<li>可以跨作业运行，它为应用提交提供了REST接口。</li>
-<li>当一个应用被提交执行时，分发器就会启动并将应用移交给一个JobManager。</li>
-<li>Dispatcher也会启动一个Web UI，用来方便地展示和监控作业执行的信息。</li>
-<li>Dispatcher在架构中可能并不是必需的，这取决于应用提交运行的方式。</li>
-</ul>
+                <h1 id="Docker安装部署"><a href="#Docker安装部署" class="headerlink" title="Docker安装部署"></a>Docker安装部署</h1><h2 id="一-检查环境"><a href="#一-检查环境" class="headerlink" title="一 检查环境"></a>一 检查环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看系统内核</span></span><br><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+
+<p><img src="/.io//image-20230828230728211.png" alt="image-20230828230728211"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看系统版本</span></span><br><span class="line">cat /etc/os-release</span><br></pre></td></tr></table></figure>
+
+<p><img src="/.io//image-20230828230842719.png" alt="image-20230828230842719"></p>
+<h2 id="二-安装Docker"><a href="#二-安装Docker" class="headerlink" title="二 安装Docker"></a>二 安装Docker</h2><h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1.卸载旧版本"></a>1.卸载旧版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-下载需要的安装包"><a href="#2-下载需要的安装包" class="headerlink" title="2.下载需要的安装包"></a>2.下载需要的安装包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-设置镜像的仓库"><a href="#3-设置镜像的仓库" class="headerlink" title="3.设置镜像的仓库"></a>3.设置镜像的仓库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">--add-repo \</span><br><span class="line">https://download.docker.com/linux/centos/docker-ce.repo      </span><br><span class="line"> （默认国外的仓库） </span><br><span class="line"> </span><br><span class="line"> yum-config-manager \ </span><br><span class="line"> --add-repo \ </span><br><span class="line"> http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"> （推荐使用阿里云镜像）</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-更新yum包索引"><a href="#4-更新yum包索引" class="headerlink" title="4.更新yum包索引"></a>4.更新yum包索引</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-安装docker"><a href="#5-安装docker" class="headerlink" title="5.安装docker"></a>5.安装docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ce社区版 ee企业版</span></span><br><span class="line">yum install docker-ce docker-ce-cli containerd.io（这是最新的版本）</span><br><span class="line">如果下载别的版本</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看版本</span></span><br><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">下载某一版本</span></span><br><span class="line">yum install docker-ce-&lt;VERSION_STRING&gt; docker-ce-cli-&lt;VERSION_STRING&gt; containerd.io</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-启动docker"><a href="#6-启动docker" class="headerlink" title="6.启动docker"></a>6.启动docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-查看版本"><a href="#7-查看版本" class="headerlink" title="7.查看版本"></a>7.查看版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-查看镜像"><a href="#8-查看镜像" class="headerlink" title="8.查看镜像"></a>8.查看镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<p><img src="/.io//image-20230828232125744.png" alt="image-20230828232125744"></p>
+<h2 id="三-配置阿里云镜像加速器"><a href="#三-配置阿里云镜像加速器" class="headerlink" title="三 配置阿里云镜像加速器"></a>三 配置阿里云镜像加速器</h2><p>配置阿里云镜像加速器，在docker pull镜像时，比在官网下载快不少</p>
+<p>打开阿里云 &#x3D;&#x3D;&#x3D;》容器服务 &#x3D;&#x3D;&#x3D;》容器镜像服务 &#x3D;&#x3D;&#x3D;》镜像加速器 &#x3D;&#x3D;&#x3D;》centos &#x3D;&#x3D;&#x3D;》复制执行</p>
+<p><img src="/.io//image-20230828233334745.png" alt="image-20230828233334745"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://vayauu8j.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="四-卸载docker"><a href="#四-卸载docker" class="headerlink" title="四 卸载docker"></a>四 卸载docker</h2><h3 id="1-卸载依赖"><a href="#1-卸载依赖" class="headerlink" title="1.卸载依赖"></a>1.卸载依赖</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-删除资源"><a href="#2-删除资源" class="headerlink" title="2.删除资源"></a>2.删除资源</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/docker</span><br><span class="line">rm -rf /var/lib/containerd</span><br></pre></td></tr></table></figure>
+
 
                 
             </div>
@@ -468,7 +484,7 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://BruceZhang-utf-8.github.io/2023/07/16/flink%E8%BF%90%E8%A1%8C%E6%9E%B6%E6%9E%84-%E8%BF%90%E8%A1%8C%E6%97%B6%E7%BB%84%E4%BB%B6/">https://BruceZhang-utf-8.github.io/2023/07/16/flink%E8%BF%90%E8%A1%8C%E6%9E%B6%E6%9E%84-%E8%BF%90%E8%A1%8C%E6%97%B6%E7%BB%84%E4%BB%B6/</a>
+                    <a href="https://BruceZhang-utf-8.github.io/2023/08/28/docker%E5%AE%89%E8%A3%85/">https://BruceZhang-utf-8.github.io/2023/08/28/docker%E5%AE%89%E8%A3%85/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -506,8 +522,8 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/flink%E8%BF%90%E8%A1%8C%E6%97%B6%E7%BB%84%E4%BB%B6/">
-                                    <span class="chip bg-color">flink运行时组件</span>
+                                <a href="/tags/docker%E5%AE%89%E8%A3%85/">
+                                    <span class="chip bg-color">docker安装</span>
                                 </a>
                             
                         </div>
@@ -553,9 +569,10 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/08/28/docker%E5%AE%89%E8%A3%85/">
                     <div class="card-image">
@@ -573,9 +590,9 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -592,6 +609,7 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -607,7 +625,7 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2023/07/16/flink%E8%BF%90%E8%A1%8C%E6%9E%B6%E6%9E%84-%E8%BF%90%E8%A1%8C%E6%97%B6%E7%BB%84%E4%BB%B6/">
@@ -645,7 +663,6 @@ JobManager 会先接收到要执行的应用程序，这个应用程序会包括
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
