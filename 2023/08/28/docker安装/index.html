@@ -424,10 +424,10 @@
             <div id="articleContent">
                 <h1 id="Docker安装部署"><a href="#Docker安装部署" class="headerlink" title="Docker安装部署"></a>Docker安装部署</h1><h2 id="一-检查环境"><a href="#一-检查环境" class="headerlink" title="一 检查环境"></a>一 检查环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看系统内核</span></span><br><span class="line">uname -r</span><br></pre></td></tr></table></figure>
 
-<p><img src="/.io//image-20230828230728211.png" alt="image-20230828230728211"></p>
+<p><img src="/2023/08/28/docker%E5%AE%89%E8%A3%85/image-20230828230728211.png" alt="image-20230828230728211"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看系统版本</span></span><br><span class="line">cat /etc/os-release</span><br></pre></td></tr></table></figure>
 
-<p><img src="/.io//image-20230828230842719.png" alt="image-20230828230842719"></p>
+<p><img src="/2023/08/28/docker%E5%AE%89%E8%A3%85/image-20230828230842719.png" alt="image-20230828230842719"></p>
 <h2 id="二-安装Docker"><a href="#二-安装Docker" class="headerlink" title="二 安装Docker"></a>二 安装Docker</h2><h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1.卸载旧版本"></a>1.卸载旧版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
 
 
@@ -446,10 +446,10 @@
 
 <h3 id="8-查看镜像"><a href="#8-查看镜像" class="headerlink" title="8.查看镜像"></a>8.查看镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
 
-<p><img src="/.io//image-20230828232125744.png" alt="image-20230828232125744"></p>
+<p><img src="/2023/08/28/docker%E5%AE%89%E8%A3%85/image-20230828232125744.png" alt="image-20230828232125744"></p>
 <h2 id="三-配置阿里云镜像加速器"><a href="#三-配置阿里云镜像加速器" class="headerlink" title="三 配置阿里云镜像加速器"></a>三 配置阿里云镜像加速器</h2><p>配置阿里云镜像加速器，在docker pull镜像时，比在官网下载快不少</p>
 <p>打开阿里云 &#x3D;&#x3D;&#x3D;》容器服务 &#x3D;&#x3D;&#x3D;》容器镜像服务 &#x3D;&#x3D;&#x3D;》镜像加速器 &#x3D;&#x3D;&#x3D;》centos &#x3D;&#x3D;&#x3D;》复制执行</p>
-<p><img src="/.io//image-20230828233334745.png" alt="image-20230828233334745"></p>
+<p><img src="/2023/08/28/docker%E5%AE%89%E8%A3%85/image-20230828233334745.png" alt="image-20230828233334745"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://vayauu8j.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 
 
