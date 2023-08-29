@@ -5,13 +5,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="docker安装, 数维杂谈">
-    <meta name="description" content="Docker安装部署一 检查环境12#查看系统内核uname -r
+    <meta name="description" content="Docker安装部署一 检查环境#查看系统内核
+uname -r
 
 
-12#查看系统版本cat /etc/os-release
+#查看系统版本
+cat /etc/os-release
 
 
-二 安装Docker1.卸载旧版本12345678yum remove docker \         ">
+二 安装Docker1.卸载旧版本yum remove docker \
+                  ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -417,46 +420,80 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Docker安装部署"><a href="#Docker安装部署" class="headerlink" title="Docker安装部署"></a>Docker安装部署</h1><h2 id="一-检查环境"><a href="#一-检查环境" class="headerlink" title="一 检查环境"></a>一 检查环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看系统内核</span></span><br><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+                <h1 id="Docker安装部署"><a href="#Docker安装部署" class="headerlink" title="Docker安装部署"></a>Docker安装部署</h1><h2 id="一-检查环境"><a href="#一-检查环境" class="headerlink" title="一 检查环境"></a>一 检查环境</h2><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看系统内核</span>
+<span class="token function">uname</span> <span class="token parameter variable">-r</span></code></pre>
 
 <p><img src="/2023/08/28/docker%E5%AE%89%E8%A3%85/image-20230828230728211.png" alt="image-20230828230728211"></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看系统版本</span></span><br><span class="line">cat /etc/os-release</span><br></pre></td></tr></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看系统版本</span>
+<span class="token function">cat</span> /etc/os-release</code></pre>
 
 <p><img src="/2023/08/28/docker%E5%AE%89%E8%A3%85/image-20230828230842719.png" alt="image-20230828230842719"></p>
-<h2 id="二-安装Docker"><a href="#二-安装Docker" class="headerlink" title="二 安装Docker"></a>二 安装Docker</h2><h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1.卸载旧版本"></a>1.卸载旧版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+<h2 id="二-安装Docker"><a href="#二-安装Docker" class="headerlink" title="二 安装Docker"></a>二 安装Docker</h2><h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1.卸载旧版本"></a>1.卸载旧版本</h3><pre class="language-bash" data-language="bash"><code class="language-bash">yum remove <span class="token function">docker</span> <span class="token punctuation">\</span>
+                  docker-client <span class="token punctuation">\</span>
+                  docker-client-latest <span class="token punctuation">\</span>
+                  docker-common <span class="token punctuation">\</span>
+                  docker-latest <span class="token punctuation">\</span>
+                  docker-latest-logrotate <span class="token punctuation">\</span>
+                  docker-logrotate <span class="token punctuation">\</span>
+                  docker-engine</code></pre>
 
 
 
-<h3 id="2-下载需要的安装包"><a href="#2-下载需要的安装包" class="headerlink" title="2.下载需要的安装包"></a>2.下载需要的安装包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils</span><br></pre></td></tr></table></figure>
+<h3 id="2-下载需要的安装包"><a href="#2-下载需要的安装包" class="headerlink" title="2.下载需要的安装包"></a>2.下载需要的安装包</h3><pre class="language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> <span class="token parameter variable">-y</span> yum-utils</code></pre>
 
-<h3 id="3-设置镜像的仓库"><a href="#3-设置镜像的仓库" class="headerlink" title="3.设置镜像的仓库"></a>3.设置镜像的仓库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">--add-repo \</span><br><span class="line">https://download.docker.com/linux/centos/docker-ce.repo      </span><br><span class="line"> （默认国外的仓库） </span><br><span class="line"> </span><br><span class="line"> yum-config-manager \ </span><br><span class="line"> --add-repo \ </span><br><span class="line"> http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"> （推荐使用阿里云镜像）</span><br></pre></td></tr></table></figure>
+<h3 id="3-设置镜像的仓库"><a href="#3-设置镜像的仓库" class="headerlink" title="3.设置镜像的仓库"></a>3.设置镜像的仓库</h3><pre class="language-bash" data-language="bash"><code class="language-bash">yum-config-manager <span class="token punctuation">\</span>
+--add-repo <span class="token punctuation">\</span>
+https://download.docker.com/linux/centos/docker-ce.repo      
+ （默认国外的仓库） 
+ 
+ yum-config-manager <span class="token punctuation">\</span> 
+ --add-repo <span class="token punctuation">\</span> 
+ http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+ （推荐使用阿里云镜像）</code></pre>
 
-<h3 id="4-更新yum包索引"><a href="#4-更新yum包索引" class="headerlink" title="4.更新yum包索引"></a>4.更新yum包索引</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure>
+<h3 id="4-更新yum包索引"><a href="#4-更新yum包索引" class="headerlink" title="4.更新yum包索引"></a>4.更新yum包索引</h3><pre class="language-bash" data-language="bash"><code class="language-bash">yum makecache fast</code></pre>
 
-<h3 id="5-安装docker"><a href="#5-安装docker" class="headerlink" title="5.安装docker"></a>5.安装docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ce社区版 ee企业版</span></span><br><span class="line">yum install docker-ce docker-ce-cli containerd.io（这是最新的版本）</span><br><span class="line">如果下载别的版本</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看版本</span></span><br><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">下载某一版本</span></span><br><span class="line">yum install docker-ce-&lt;VERSION_STRING&gt; docker-ce-cli-&lt;VERSION_STRING&gt; containerd.io</span><br></pre></td></tr></table></figure>
+<h3 id="5-安装docker"><a href="#5-安装docker" class="headerlink" title="5.安装docker"></a>5.安装docker</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ce社区版 ee企业版</span>
+yum <span class="token function">install</span> docker-ce docker-ce-cli containerd.io（这是最新的版本）
+如果下载别的版本
+<span class="token comment">#查看版本</span>
+yum list docker-ce <span class="token parameter variable">--showduplicates</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-r</span>
+<span class="token comment">#下载某一版本</span>
+yum <span class="token function">install</span> docker-ce-<span class="token operator">&lt;</span>VERSION_STRING<span class="token operator">></span> docker-ce-cli-<span class="token operator">&lt;</span>VERSION_STRING<span class="token operator">></span> containerd.io</code></pre>
 
-<h3 id="6-启动docker"><a href="#6-启动docker" class="headerlink" title="6.启动docker"></a>6.启动docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+<h3 id="6-启动docker"><a href="#6-启动docker" class="headerlink" title="6.启动docker"></a>6.启动docker</h3><pre class="language-bash" data-language="bash"><code class="language-bash">systemctl start <span class="token function">docker</span></code></pre>
 
-<h3 id="7-查看版本"><a href="#7-查看版本" class="headerlink" title="7.查看版本"></a>7.查看版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
+<h3 id="7-查看版本"><a href="#7-查看版本" class="headerlink" title="7.查看版本"></a>7.查看版本</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> version</code></pre>
 
-<h3 id="8-查看镜像"><a href="#8-查看镜像" class="headerlink" title="8.查看镜像"></a>8.查看镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<h3 id="8-查看镜像"><a href="#8-查看镜像" class="headerlink" title="8.查看镜像"></a>8.查看镜像</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> images</code></pre>
 
 <p><img src="/2023/08/28/docker%E5%AE%89%E8%A3%85/image-20230828232125744.png" alt="image-20230828232125744"></p>
 <h2 id="三-配置阿里云镜像加速器"><a href="#三-配置阿里云镜像加速器" class="headerlink" title="三 配置阿里云镜像加速器"></a>三 配置阿里云镜像加速器</h2><p>配置阿里云镜像加速器，在docker pull镜像时，比在官网下载快不少</p>
 <p>打开阿里云 &#x3D;&#x3D;&#x3D;》容器服务 &#x3D;&#x3D;&#x3D;》容器镜像服务 &#x3D;&#x3D;&#x3D;》镜像加速器 &#x3D;&#x3D;&#x3D;》centos &#x3D;&#x3D;&#x3D;》复制执行</p>
 <p><img src="/2023/08/28/docker%E5%AE%89%E8%A3%85/image-20230828233334745.png" alt="image-20230828233334745"></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://vayauu8j.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/docker
+<span class="token function">sudo</span> <span class="token function">tee</span> /etc/docker/daemon.json <span class="token operator">&lt;&lt;-</span><span class="token string">'EOF'
+&#123;
+  "registry-mirrors": ["https://vayauu8j.mirror.aliyuncs.com"]
+&#125;
+EOF</span>
+<span class="token function">sudo</span> systemctl daemon-reload
+<span class="token function">sudo</span> systemctl restart <span class="token function">docker</span></code></pre>
 
 
 
-<h2 id="四-卸载docker"><a href="#四-卸载docker" class="headerlink" title="四 卸载docker"></a>四 卸载docker</h2><h3 id="1-卸载依赖"><a href="#1-卸载依赖" class="headerlink" title="1.卸载依赖"></a>1.卸载依赖</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+<h2 id="四-卸载docker"><a href="#四-卸载docker" class="headerlink" title="四 卸载docker"></a>四 卸载docker</h2><h3 id="1-卸载依赖"><a href="#1-卸载依赖" class="headerlink" title="1.卸载依赖"></a>1.卸载依赖</h3><pre class="language-bash" data-language="bash"><code class="language-bash">yum remove docker-ce docker-ce-cli containerd.io</code></pre>
 
-<h3 id="2-删除资源"><a href="#2-删除资源" class="headerlink" title="2.删除资源"></a>2.删除资源</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/docker</span><br><span class="line">rm -rf /var/lib/containerd</span><br></pre></td></tr></table></figure>
+<h3 id="2-删除资源"><a href="#2-删除资源" class="headerlink" title="2.删除资源"></a>2.删除资源</h3><pre class="language-none"><code class="language-none">rm -rf &#x2F;var&#x2F;lib&#x2F;docker
+rm -rf &#x2F;var&#x2F;lib&#x2F;containerd</code></pre>
 
 
                 
@@ -685,6 +722,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
